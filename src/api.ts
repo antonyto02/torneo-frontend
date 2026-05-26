@@ -9,9 +9,10 @@ import type {
   Tournament,
 } from './types';
 
-const BASE =
+const BASE = (
   (import.meta.env.VITE_API_URL as string | undefined) ??
-  'http://localhost:3000/api';
+  'http://localhost:3000/api'
+).replace(/\/+$/, ''); // sin barra final → evita //auth/login
 
 const TOKEN_KEY = 'torneo_admin_token';
 
