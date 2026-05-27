@@ -77,15 +77,6 @@ function CreateForm({ onChange }: { onChange: () => void }) {
 
   return (
     <div className="card">
-      <h2>
-        <Settings size={20} /> Configurar torneo nuevo
-      </h2>
-      <p className="muted">
-        Solo necesitas los nombres de los participantes y el número de grupos.
-        Las jornadas no son fijas: la fase regular termina cuando todos hayan
-        jugado contra todos.
-      </p>
-
       <Field label="Número de grupos">
         <input
           type="number"
@@ -144,9 +135,6 @@ function CreateForm({ onChange }: { onChange: () => void }) {
         <button className="btn" disabled={busy} onClick={submit}>
           <Plus size={16} /> Crear torneo
         </button>
-        <span className="muted">
-          Tras crearlo podrás girar la ruleta de grupos.
-        </span>
       </div>
     </div>
   );
