@@ -101,7 +101,7 @@ export function Playoff({ tournament, isAdmin, onChange }: Props) {
     <>
       <div className="spread" style={{ marginTop: 20 }}>
         <h2 style={{ margin: 0 }}>
-          <Swords size={20} /> Liguilla — eliminación directa
+          <Swords size={20} /> Liguilla
         </h2>
         {canGenerate && (
           <button
@@ -133,18 +133,12 @@ export function Playoff({ tournament, isAdmin, onChange }: Props) {
           run={run}
         />
       ) : previewBracket.length > 0 ? (
-        <>
-          <p className="muted" style={{ textAlign: 'center', marginTop: 4 }}>
-            Vista previa con la clasificación actual · cada ronda se reacomoda
-            por siembra (mejor vs peor).
-          </p>
-          <BracketView
-            bracket={previewBracket}
-            isAdmin={false}
-            busy={false}
-            run={async () => {}}
-          />
-        </>
+        <BracketView
+          bracket={previewBracket}
+          isAdmin={false}
+          busy={false}
+          run={async () => {}}
+        />
       ) : (
         <div className="empty">
           {tournament?.status === 'REGULAR'

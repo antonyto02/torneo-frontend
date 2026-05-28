@@ -85,7 +85,7 @@ export default function App() {
 
   const tabs: { id: Tab; label: string; icon: LucideIcon }[] = [
     { id: 'standings', label: 'Tabla', icon: Trophy },
-    { id: 'rounds', label: 'Jornadas', icon: CalendarDays },
+    { id: 'rounds', label: 'Partidos', icon: CalendarDays },
     { id: 'playoff', label: 'Liguilla', icon: Swords },
   ];
   if (adminMode) tabs.push({ id: 'admin', label: 'Admin', icon: Settings });
