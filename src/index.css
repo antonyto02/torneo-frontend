@@ -858,37 +858,6 @@ tr.wildcard td:first-child {
   .group-tables {
     grid-template-columns: 1fr;
   }
-
-  /* Bracket: en móvil se oculta el de dos lados y se apila por ronda */
-  .bracket-fifa {
-    display: none;
-  }
-  .bracket-rounds {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    margin-top: 10px;
-  }
-  .brm-round {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-  }
-  .brm-round h4 {
-    margin: 0;
-    text-align: center;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 1px;
-    font-size: 0.82rem;
-  }
-  .brm-round .box {
-    width: 100%;
-  }
-  .brm-round .brteam {
-    font-size: 0.95rem;
-    padding: 10px 14px;
-  }
 }
 
 /* Leyenda de colores (clasificados) */
@@ -1818,4 +1787,38 @@ tr.wildcard td:first-child {
   font-size: 0.78rem;
   color: var(--muted);
   margin-top: 2px;
+}
+
+/* ── Liguilla en móvil: ocultar el bracket de dos lados y apilar por ronda.
+   Va al final del archivo para ganar a las reglas base por orden. ── */
+@media (max-width: 680px) {
+  .bracket-fifa {
+    display: none;
+  }
+  .bracket-rounds {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
+  }
+  .brm-round {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .brm-round h4 {
+    margin: 0;
+    text-align: center;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.82rem;
+  }
+  .brm-round .box {
+    width: 100%;
+  }
+  .brm-round .brteam {
+    font-size: 0.95rem;
+    padding: 10px 14px;
+  }
 }
