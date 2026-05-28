@@ -75,7 +75,7 @@ export default function App() {
   if (onAdminRoute && !authed) {
     return (
       <>
-        <Header tournament={tournament} adminMode={false} />
+        <Header adminMode={false} />
         <main className="container">
           <AdminLogin onLogin={onLogin} onCancel={() => navigate('/')} />
         </main>
@@ -93,7 +93,6 @@ export default function App() {
   return (
     <>
       <Header
-        tournament={tournament}
         adminMode={adminMode}
         tabs={tabs}
         tab={tab}
@@ -142,14 +141,12 @@ export default function App() {
 }
 
 function Header({
-  tournament,
   adminMode,
   tabs,
   tab,
   setTab,
   onLogout,
 }: {
-  tournament: Tournament | null;
   adminMode: boolean;
   tabs?: { id: Tab; label: string; icon: LucideIcon }[];
   tab?: Tab;
@@ -160,10 +157,7 @@ function Header({
     <header className="app-header">
       <div className="header-inner">
         <div className="brand">
-          <Trophy size={22} color="var(--accent)" />
-          <span className="brand-name">
-            {tournament?.name ?? 'Torneo FIFA'}
-          </span>
+          <Trophy size={24} color="var(--accent)" />
         </div>
 
         {tabs && tabs.length > 0 && (

@@ -826,6 +826,31 @@ tr.wildcard td:first-child {
   margin-top: 0;
 }
 
+/* Tabla en móvil: oculta columnas secundarias (G/E/P/GF/GC) y deja
+   PJ · DG · PTS, para que el nombre completo quepa. */
+@media (max-width: 680px) {
+  .st-head > :nth-child(n + 4):nth-child(-n + 8),
+  .st-row > :nth-child(n + 4):nth-child(-n + 8) {
+    display: none;
+  }
+  .st-head,
+  .st-row {
+    grid-template-columns: 26px minmax(0, 1fr) 30px 40px 48px;
+    gap: 6px;
+    padding: 12px 12px;
+  }
+  .st-name {
+    white-space: normal;
+    line-height: 1.15;
+  }
+  .st-name small {
+    display: none;
+  }
+  .group-tables {
+    grid-template-columns: 1fr;
+  }
+}
+
 /* Leyenda de colores (clasificados) */
 .legend {
   display: flex;
