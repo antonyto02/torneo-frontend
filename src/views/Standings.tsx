@@ -11,6 +11,7 @@ export function Standings() {
   const [t, setT] = useState<Tournament | null>(null);
   const [view, setView] = useState<View>('general');
   const [error, setError] = useState('');
+  const [loaded, setLoaded] = useState(false);
 
   useEffect(() => {
     Promise.all([
@@ -23,7 +24,8 @@ export function Standings() {
         setGroups(g);
         setT(tt);
       })
-      .catch((e) => setError((e as Error).message));
+      .catch((e) => setError((e as Error).message))
+      .finally(() => setLoaded(true));
   }, []);
 
   const perGroup = t?.classifyPerGroup ?? 2;
@@ -78,7 +80,13 @@ export function Standings() {
 
       {error && <div className="error">{error}</div>}
 
-      {view === 'general' ? (
+      {!loaded ? (
+        <div className="skel-list">
+          {Array.from({ length: 8 }).map((_, i) => (
+            <div key={i} className="skel skel-row" />
+          ))}
+        </div>
+      ) : view === 'general' ? (
         rows.length === 0 ? (
           <div className="empty">Todavía no hay tabla general.</div>
         ) : (

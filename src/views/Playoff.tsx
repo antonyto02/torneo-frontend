@@ -58,6 +58,7 @@ export function Playoff({ tournament, isAdmin, onChange }: Props) {
   const [classified, setClassified] = useState<Classified[]>([]);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const load = useCallback(async () => {
     try {
@@ -69,6 +70,8 @@ export function Playoff({ tournament, isAdmin, onChange }: Props) {
       setClassified(c);
     } catch (e) {
       setError((e as Error).message);
+    } finally {
+      setLoaded(true);
     }
   }, []);
 
@@ -125,7 +128,13 @@ export function Playoff({ tournament, isAdmin, onChange }: Props) {
 
       {error && <div className="error">{error}</div>}
 
-      {generated ? (
+      {!loaded ? (
+        <div className="skel-list">
+          <div className="skel skel-box" />
+          <div className="skel skel-box" />
+          <div className="skel skel-box" />
+        </div>
+      ) : generated ? (
         <BracketView
           bracket={bracket}
           isAdmin={isAdmin}

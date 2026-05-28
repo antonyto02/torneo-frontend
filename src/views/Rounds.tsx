@@ -40,12 +40,15 @@ export function Rounds({ tournament, rules, isAdmin, onChange }: Props) {
   const [idx, setIdx] = useState(0);
   const [error, setError] = useState('');
   const [busy, setBusy] = useState(false);
+  const [loaded, setLoaded] = useState(false);
 
   const load = useCallback(async () => {
     try {
       setRounds(await api.getRounds());
     } catch (e) {
       setError((e as Error).message);
+    } finally {
+      setLoaded(true);
     }
   }, []);
 
@@ -91,6 +94,23 @@ export function Rounds({ tournament, rules, isAdmin, onChange }: Props) {
   const isVirtual = safeIdx >= total; // estás en el slot "Crear siguiente"
   const current = isVirtual ? null : ordered[safeIdx];
   const displayNumber = isVirtual ? total + 1 : current!.number;
+
+  // Mientras carga la lista de jornadas: skeleton (en vez del texto vacío).
+  if (!loaded) {
+    return (
+      <div className="skel-list">
+        <div
+          className="skel"
+          style={{ height: 46, width: 240, margin: '22px auto', borderRadius: 12 }}
+        />
+        <div className="skel skel-box" style={{ height: 80, marginTop: 16 }} />
+        <div className="skel skel-row" />
+        <div className="skel skel-row" />
+        <div className="skel skel-row" />
+        <div className="skel skel-row" />
+      </div>
+    );
+  }
 
   // Sin jornadas y sin poder crear (p. ej. en SETUP): estado vacío.
   if (total === 0 && !canCreateNext) {
