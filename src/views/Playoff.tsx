@@ -202,6 +202,7 @@ function BracketView({
           </div>
         </div>
       )}
+      {/* Desktop: bracket de dos lados con el trofeo al centro */}
       <div className="bracket-fifa">
         {renderSide('left')}
         <div className="br-center">
@@ -220,8 +221,39 @@ function BracketView({
         </div>
         {renderSide('right')}
       </div>
+
+      {/* Móvil: apilado por ronda (Cuartos → Semifinal → Final) */}
+      <div className="bracket-rounds">
+        {rounds.map((ri) => {
+          const ms = bracket
+            .filter((m) => m.roundIndex === ri)
+            .sort((a, b) => a.slotIndex - b.slotIndex);
+          return (
+            <div className="brm-round" key={ri}>
+              <h4>{roundTitle(ms.length)}</h4>
+              {ms.map((m) => (
+                <BracketBox
+                  key={m.id}
+                  m={m}
+                  isAdmin={isAdmin}
+                  busy={busy}
+                  run={run}
+                />
+              ))}
+            </div>
+          );
+        })}
+      </div>
     </>
   );
+}
+
+function roundTitle(matchCount: number): string {
+  if (matchCount === 1) return 'Final';
+  if (matchCount === 2) return 'Semifinal';
+  if (matchCount === 4) return 'Cuartos de final';
+  if (matchCount === 8) return 'Octavos de final';
+  return `Ronda de ${matchCount * 2}`;
 }
 
 function BracketBox({

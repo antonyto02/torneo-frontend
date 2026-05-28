@@ -859,29 +859,35 @@ tr.wildcard td:first-child {
     grid-template-columns: 1fr;
   }
 
-  /* Bracket: más compacto y con scroll horizontal */
+  /* Bracket: en móvil se oculta el de dos lados y se apila por ronda */
   .bracket-fifa {
-    padding: 12px 2px;
-    min-height: 0;
+    display: none;
   }
-  .br-col {
-    min-width: 124px;
+  .bracket-rounds {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    margin-top: 10px;
   }
-  .br-center {
-    min-width: 132px;
+  .brm-round {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
   }
-  .brteam {
-    font-size: 0.78rem;
-    padding: 6px 8px;
-    gap: 6px;
+  .brm-round h4 {
+    margin: 0;
+    text-align: center;
+    color: var(--accent);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-size: 0.82rem;
   }
-  .brseed {
-    width: 17px;
-    height: 17px;
-    font-size: 0.62rem;
+  .brm-round .box {
+    width: 100%;
   }
-  .br-trophy {
-    font-size: 2rem;
+  .brm-round .brteam {
+    font-size: 0.95rem;
+    padding: 10px 14px;
   }
 }
 
@@ -972,6 +978,10 @@ tr.wildcard td:first-child {
   padding: 18px 4px;
   margin-top: 8px;
   min-height: 440px;
+}
+/* El apilado por ronda solo se usa en móvil (ver media query) */
+.bracket-rounds {
+  display: none;
 }
 .br-side {
   display: flex;
