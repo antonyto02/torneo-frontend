@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Flag, Trophy } from 'lucide-react';
+import { Flag } from 'lucide-react';
 import { api } from '../api';
 import type { Classified, PlayoffMatch, Tournament } from '../types';
 
@@ -102,29 +102,31 @@ export function Playoff({ tournament, isAdmin, onChange }: Props) {
 
   return (
     <>
-      <div className="spread" style={{ marginTop: 20 }}>
-        <h2 style={{ margin: 0 }}>
-          <Trophy size={20} color="var(--accent)" /> Liguilla
-        </h2>
-        {canGenerate && (
-          <button
-            className="btn"
-            disabled={busy}
-            onClick={() => run(() => api.generatePlayoff())}
-          >
-            <Flag size={16} /> Generar liguilla
-          </button>
-        )}
-        {isAdmin && generated && (
-          <button
-            className="btn danger sm"
-            disabled={busy}
-            onClick={() => run(() => api.resetPlayoff())}
-          >
-            Reiniciar liguilla
-          </button>
-        )}
-      </div>
+      {(canGenerate || (isAdmin && generated)) && (
+        <div
+          className="row"
+          style={{ justifyContent: 'flex-end', marginTop: 22 }}
+        >
+          {canGenerate && (
+            <button
+              className="btn"
+              disabled={busy}
+              onClick={() => run(() => api.generatePlayoff())}
+            >
+              <Flag size={16} /> Generar liguilla
+            </button>
+          )}
+          {isAdmin && generated && (
+            <button
+              className="btn danger sm"
+              disabled={busy}
+              onClick={() => run(() => api.resetPlayoff())}
+            >
+              Reiniciar liguilla
+            </button>
+          )}
+        </div>
+      )}
 
       {error && <div className="error">{error}</div>}
 
@@ -290,7 +292,7 @@ function BracketBox({
     <div className="box">
       <div className={`brteam ${winHome ? 'win' : ''} ${m.homeName ? '' : 'tbd'}`}>
         {m.homeSeed != null && <span className="brseed">{m.homeSeed}</span>}
-        <span className="brname">{m.homeName ?? 'Por definir'}</span>
+        <span className="brname">{m.homeName ?? ''}</span>
         {editable ? (
           <input
             className="brsc"
@@ -305,7 +307,7 @@ function BracketBox({
       </div>
       <div className={`brteam ${winAway ? 'win' : ''} ${m.awayName ? '' : 'tbd'}`}>
         {m.awaySeed != null && <span className="brseed">{m.awaySeed}</span>}
-        <span className="brname">{m.awayName ?? 'Por definir'}</span>
+        <span className="brname">{m.awayName ?? ''}</span>
         {editable ? (
           <input
             className="brsc"

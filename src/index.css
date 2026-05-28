@@ -796,17 +796,10 @@ tr.wildcard td:first-child {
   font-weight: 900 !important;
   font-size: 1.15rem;
 }
-.st-row.qual {
-  border-color: var(--accent-2);
-  background: linear-gradient(90deg, rgba(63, 185, 80, 0.1), var(--surface));
-}
+/* La fila NO cambia; el color del chip de posición es el único indicador */
 .st-row.qual .st-rank {
   background: var(--accent-2);
   color: #0c0f13;
-}
-.st-row.wild {
-  border-color: var(--accent);
-  background: linear-gradient(90deg, rgba(245, 166, 35, 0.1), var(--surface));
 }
 .st-row.wild .st-rank {
   background: var(--accent);
@@ -2103,4 +2096,18 @@ main.container {
 .rule-card .rc-text .muted {
   font-size: 0.88rem;
   line-height: 1.35;
+}
+
+/* Secciones de la vista Reglas */
+.rules-section {
+  margin-top: 22px;
+}
+.rules-section h3 {
+  margin: 0 0 8px;
+  color: var(--accent);
+}
+.rules-section p {
+  margin: 0 0 8px;
+  line-height: 1.45;
+  font-size: 0.95rem;
 }

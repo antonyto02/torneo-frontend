@@ -50,18 +50,7 @@ export function Standings() {
 
   return (
     <>
-      <div className="lt-header">
-        <h2 style={{ margin: 0 }}>
-          {view === 'general' ? (
-            <>
-              <ListOrdered size={20} color="var(--accent)" /> General
-            </>
-          ) : (
-            <>
-              <Users size={20} color="var(--accent)" /> Grupos
-            </>
-          )}
-        </h2>
+      <div style={{ textAlign: 'center', marginTop: 22 }}>
         <div className="lt-toggle">
           <button
             className={view === 'general' ? 'active' : ''}
