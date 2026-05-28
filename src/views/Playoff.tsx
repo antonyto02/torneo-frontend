@@ -231,27 +231,31 @@ function BracketView({
         {renderSide('right')}
       </div>
 
-      {/* Móvil: apilado por ronda (Cuartos → Semifinal → Final) */}
-      <div className="bracket-rounds">
+      {/* Móvil: bracket de un solo lado (Cuartos | Semis | Final) con conectores */}
+      <div className="bracket-single">
         {rounds.map((ri) => {
           const ms = bracket
             .filter((m) => m.roundIndex === ri)
             .sort((a, b) => a.slotIndex - b.slotIndex);
           return (
-            <div className="brm-round" key={ri}>
-              <h4>{roundTitle(ms.length)}</h4>
-              {ms.map((m) => (
-                <BracketBox
-                  key={m.id}
-                  m={m}
-                  isAdmin={isAdmin}
-                  busy={busy}
-                  run={run}
-                />
-              ))}
+            <div className="bs-col" key={ri}>
+              <div className="bs-label">{roundTitle(ms.length)}</div>
+              <div className="bs-matches">
+                {ms.map((m) => (
+                  <div className="bs-cell" key={m.id}>
+                    <BracketBox
+                      m={m}
+                      isAdmin={isAdmin}
+                      busy={busy}
+                      run={run}
+                    />
+                  </div>
+                ))}
+              </div>
             </div>
           );
         })}
+        <div className="bs-trophy">🏆</div>
       </div>
     </>
   );

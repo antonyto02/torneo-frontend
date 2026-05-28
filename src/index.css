@@ -1874,3 +1874,117 @@ tr.wildcard td:first-child {
     margin: 4px 0 14px;
   }
 }
+
+/* Bracket de un solo lado para móvil (Cuartos | Semis | Final) con conectores */
+.bracket-single {
+  display: none;
+}
+@media (max-width: 680px) {
+  .bracket-fifa {
+    display: none;
+  }
+  .bracket-rounds {
+    display: none;
+  }
+  .bracket-single {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    padding: 16px 4px;
+    margin-top: 8px;
+    overflow: hidden;
+  }
+  .bs-col {
+    display: flex;
+    flex-direction: column;
+    flex: 1 1 0;
+    min-width: 92px;
+  }
+  .bs-label {
+    text-align: center;
+    color: var(--accent);
+    font-weight: 800;
+    text-transform: uppercase;
+    letter-spacing: 0.7px;
+    font-size: 0.64rem;
+    margin-bottom: 10px;
+  }
+  .bs-matches {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    flex: 1;
+  }
+  .bs-cell {
+    position: relative;
+    display: flex;
+    align-items: center;
+    flex: 1 1 0;
+    padding: 6px 14px 6px 0;
+  }
+  .bs-cell .box {
+    width: 100%;
+  }
+  .bs-cell .brteam {
+    font-size: 0.72rem;
+    padding: 5px 7px;
+    gap: 4px;
+  }
+  .bs-cell .brseed {
+    width: 16px;
+    height: 16px;
+    font-size: 0.58rem;
+    border-radius: 5px;
+  }
+  .bs-cell .brname {
+    font-size: 0.74rem;
+  }
+  .bs-cell .brsc-v,
+  .bs-cell .brsc {
+    font-size: 0.78rem;
+    min-width: 14px;
+  }
+  .bs-cell .br-ok {
+    padding: 4px;
+    font-size: 0.72rem;
+  }
+  /* ── Conectores estilo bracket ── */
+  /* stub a la derecha en cada cell de columnas que no son la final */
+  .bs-col:not(:last-child) .bs-cell::after {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 14px;
+    height: 2px;
+    background: var(--border);
+  }
+  /* línea vertical que une cada par hacia el siguiente */
+  .bs-col:not(:last-child) .bs-cell:nth-child(odd)::before {
+    content: '';
+    position: absolute;
+    right: 0;
+    top: 50%;
+    width: 2px;
+    height: 100%;
+    background: var(--border);
+  }
+  /* stub a la izquierda en cada cell de columnas que no son la primera */
+  .bs-col:not(:first-child) .bs-cell .box::before {
+    content: '';
+    position: absolute;
+    left: -14px;
+    top: 50%;
+    width: 14px;
+    height: 2px;
+    background: var(--border);
+  }
+  /* trofeo al final del bracket */
+  .bs-trophy {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-left: 6px;
+    font-size: 1.8rem;
+  }
+}
