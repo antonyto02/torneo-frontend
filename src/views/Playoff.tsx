@@ -255,7 +255,6 @@ function BracketView({
             </div>
           );
         })}
-        <div className="bs-trophy">🏆</div>
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
+  BookOpen,
   CalendarDays,
   ListOrdered,
   LogOut,
@@ -12,10 +13,11 @@ import type { Rule, Tournament } from './types';
 import { Standings } from './views/Standings';
 import { Rounds } from './views/Rounds';
 import { Playoff } from './views/Playoff';
+import { Rules } from './views/Rules';
 import { Setup } from './views/Setup';
 import { AdminLogin } from './views/AdminLogin';
 
-type Tab = 'standings' | 'rounds' | 'playoff' | 'admin';
+type Tab = 'standings' | 'rounds' | 'playoff' | 'rules' | 'admin';
 
 /** Ruteo mínimo basado en la URL, sin librerías. */
 function usePath(): [string, (to: string) => void] {
@@ -60,6 +62,13 @@ export default function App() {
   // El modo admin solo aplica dentro de la ruta /admin
   const adminMode = onAdminRoute && authed;
 
+  // Si la tab actual no corresponde al modo (p. ej. 'admin' sin sesión, o
+  // 'rules' siendo admin), regresa a Tabla.
+  useEffect(() => {
+    if (!adminMode && tab === 'admin') setTab('standings');
+    if (adminMode && tab === 'rules') setTab('admin');
+  }, [adminMode, tab]);
+
   const onLogin = () => {
     setAuthed(true);
     setTab('admin');
@@ -75,7 +84,7 @@ export default function App() {
   if (onAdminRoute && !authed) {
     return (
       <>
-        <Header adminMode={false} />
+        <TopBar adminMode={false} />
         <main className="container">
           <AdminLogin onLogin={onLogin} onCancel={() => navigate('/')} />
         </main>
@@ -83,22 +92,23 @@ export default function App() {
     );
   }
 
-  const tabs: { id: Tab; label: string; icon: LucideIcon }[] = [
-    { id: 'standings', label: 'Tabla', icon: ListOrdered },
-    { id: 'rounds', label: 'Partidos', icon: CalendarDays },
-    { id: 'playoff', label: 'Liguilla', icon: Trophy },
-  ];
-  if (adminMode) tabs.push({ id: 'admin', label: 'Admin', icon: Settings });
+  const tabs: { id: Tab; label: string; icon: LucideIcon }[] = adminMode
+    ? [
+        { id: 'standings', label: 'Tabla', icon: ListOrdered },
+        { id: 'rounds', label: 'Partidos', icon: CalendarDays },
+        { id: 'playoff', label: 'Liguilla', icon: Trophy },
+        { id: 'admin', label: 'Admin', icon: Settings },
+      ]
+    : [
+        { id: 'standings', label: 'Tabla', icon: ListOrdered },
+        { id: 'rounds', label: 'Partidos', icon: CalendarDays },
+        { id: 'playoff', label: 'Liguilla', icon: Trophy },
+        { id: 'rules', label: 'Reglas', icon: BookOpen },
+      ];
 
   return (
     <>
-      <Header
-        adminMode={adminMode}
-        tabs={tabs}
-        tab={tab}
-        setTab={setTab}
-        onLogout={onLogout}
-      />
+      <TopBar adminMode={adminMode} onLogout={onLogout} />
 
       <main className="container">
         {!tournament && tab !== 'admin' ? (
@@ -125,6 +135,7 @@ export default function App() {
                 onChange={refresh}
               />
             )}
+            {tab === 'rules' && <Rules tournament={tournament} />}
             {tab === 'admin' && adminMode && (
               <Setup
                 tournament={tournament}
@@ -136,51 +147,56 @@ export default function App() {
           </>
         )}
       </main>
+
+      <BottomNav tabs={tabs} tab={tab} setTab={setTab} />
     </>
   );
 }
 
-function Header({
+function TopBar({
   adminMode,
-  tabs,
-  tab,
-  setTab,
   onLogout,
 }: {
   adminMode: boolean;
-  tabs?: { id: Tab; label: string; icon: LucideIcon }[];
-  tab?: Tab;
-  setTab?: (t: Tab) => void;
   onLogout?: () => void;
 }) {
   return (
-    <header className="app-header">
-      <div className="header-inner">
-        {tabs && tabs.length > 0 && (
-          <nav className="tabs">
-            {tabs.map((t) => (
-              <button
-                key={t.id}
-                className={tab === t.id ? 'active' : ''}
-                onClick={() => setTab?.(t.id)}
-              >
-                <t.icon size={16} />
-                {t.label}
-              </button>
-            ))}
-          </nav>
-        )}
-
-        {adminMode && (
-          <button
-            className="logout-btn"
-            onClick={onLogout}
-            title="Salir del modo admin"
-          >
-            <LogOut size={16} /> Salir
-          </button>
-        )}
-      </div>
+    <header className="app-top">
+      <h1>Torneo FC</h1>
+      {adminMode && (
+        <button
+          className="logout-btn-top"
+          onClick={onLogout}
+          title="Salir del modo admin"
+        >
+          <LogOut size={18} />
+        </button>
+      )}
     </header>
+  );
+}
+
+function BottomNav({
+  tabs,
+  tab,
+  setTab,
+}: {
+  tabs: { id: Tab; label: string; icon: LucideIcon }[];
+  tab: Tab;
+  setTab: (t: Tab) => void;
+}) {
+  return (
+    <nav className="bottom-nav">
+      {tabs.map((t) => (
+        <button
+          key={t.id}
+          className={tab === t.id ? 'active' : ''}
+          onClick={() => setTab(t.id)}
+        >
+          <t.icon size={22} />
+          <span>{t.label}</span>
+        </button>
+      ))}
+    </nav>
   );
 }
