@@ -1857,3 +1857,20 @@ tr.wildcard td:first-child {
   height: 120px;
   border-radius: 14px;
 }
+
+/* Nombre de la regla de la jornada (debajo del nav, sin caja). El ambiente
+   visual lo da el patrón del emoji aplicado como background del bloque. */
+.rule-title {
+  text-align: center;
+  font-size: 1.45rem;
+  font-weight: 900;
+  color: var(--accent);
+  letter-spacing: 0.4px;
+  margin: 6px 0 18px;
+}
+@media (max-width: 680px) {
+  .rule-title {
+    font-size: 1.2rem;
+    margin: 4px 0 14px;
+  }
+}

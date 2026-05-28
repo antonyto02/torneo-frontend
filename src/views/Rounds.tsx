@@ -214,18 +214,22 @@ function RoundCard({
     hasMatches && round.matches.every((m) => m.status === 'PLAYED');
   const pool = tournament?.rulePool ?? [];
 
+  const hasRule = round.eventDrawn && round.ruleId != null;
+  const ep = meta.emoji.codePointAt(0) ?? 0;
+  const svg =
+    `<svg xmlns='http://www.w3.org/2000/svg' width='96' height='96'>` +
+    `<text x='10' y='62' font-size='46' opacity='0.11'>&#${ep};</text></svg>`;
+  const ruleBg = hasRule
+    ? {
+        backgroundImage: `url("data:image/svg+xml;utf8,${encodeURIComponent(svg)}")`,
+        backgroundRepeat: 'repeat' as const,
+        backgroundSize: '96px 96px',
+      }
+    : undefined;
+
   return (
-    <div className="card bare">
-      {round.eventDrawn && (
-        <div className="rule-banner">
-          <span className="rb-emoji">{meta.emoji}</span>
-          <div className="rb-body">
-            <span className="rb-tag">Regla de la jornada</span>
-            <strong className="rb-title">{meta.label}</strong>
-            <div className="rb-desc muted">{meta.description}</div>
-          </div>
-        </div>
-      )}
+    <div className="card bare" style={ruleBg}>
+      {hasRule && <div className="rule-title">{meta.label}</div>}
 
       {/* Iniciar jornada: UNA sola presentación encadenada
           (regla → sorteo extra si aplica → enfrentamientos) */}
