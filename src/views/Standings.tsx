@@ -54,7 +54,7 @@ export function Standings() {
         <h2 style={{ margin: 0 }}>
           {view === 'general' ? (
             <>
-              <ListOrdered size={20} color="var(--accent)" /> Tabla general
+              <ListOrdered size={20} color="var(--accent)" /> General
             </>
           ) : (
             <>
