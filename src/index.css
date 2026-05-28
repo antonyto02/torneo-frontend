@@ -826,26 +826,31 @@ tr.wildcard td:first-child {
   margin-top: 0;
 }
 
-/* Tabla en móvil: oculta solo G/E/P; deja PJ · GF · GC · DG · PTS y el
-   nombre completo (en 2 líneas si hace falta). */
+/* Tabla en móvil: TODAS las columnas (PJ G E P GF GC DG PTS), compactas,
+   con el nombre en 2 líneas si hace falta. */
 @media (max-width: 680px) {
-  .st-head > :nth-child(n + 4):nth-child(-n + 6),
-  .st-row > :nth-child(n + 4):nth-child(-n + 6) {
-    display: none;
-  }
   .st-head,
   .st-row {
-    grid-template-columns: 24px minmax(0, 1fr) repeat(4, 26px) 42px;
-    gap: 5px;
-    padding: 11px 10px;
+    grid-template-columns: 24px minmax(0, 1fr) repeat(7, 21px) 36px;
+    gap: 3px;
+    padding: 10px 8px;
   }
   .st-head > span,
   .st-row > span {
-    font-size: 0.82rem;
+    font-size: 0.72rem;
+  }
+  .st-row .st-rank {
+    width: 22px;
+    height: 22px;
+    font-size: 0.7rem;
+  }
+  .st-pts {
+    font-size: 0.95rem !important;
   }
   .st-name {
     white-space: normal;
-    line-height: 1.15;
+    line-height: 1.12;
+    font-size: 0.88rem;
   }
   .st-name small {
     display: none;

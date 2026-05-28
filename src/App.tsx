@@ -156,10 +156,6 @@ function Header({
   return (
     <header className="app-header">
       <div className="header-inner">
-        <div className="brand">
-          <Trophy size={24} color="var(--accent)" />
-        </div>
-
         {tabs && tabs.length > 0 && (
           <nav className="tabs">
             {tabs.map((t) => (
