@@ -1,9 +1,9 @@
 import { useCallback, useEffect, useState } from 'react';
 import {
   CalendarDays,
+  ListOrdered,
   LogOut,
   Settings,
-  Swords,
   Trophy,
   type LucideIcon,
 } from 'lucide-react';
@@ -84,9 +84,9 @@ export default function App() {
   }
 
   const tabs: { id: Tab; label: string; icon: LucideIcon }[] = [
-    { id: 'standings', label: 'Tabla', icon: Trophy },
+    { id: 'standings', label: 'Tabla', icon: ListOrdered },
     { id: 'rounds', label: 'Partidos', icon: CalendarDays },
-    { id: 'playoff', label: 'Liguilla', icon: Swords },
+    { id: 'playoff', label: 'Liguilla', icon: Trophy },
   ];
   if (adminMode) tabs.push({ id: 'admin', label: 'Admin', icon: Settings });
 

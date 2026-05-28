@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useState } from 'react';
-import { Flag, Swords } from 'lucide-react';
+import { Flag, Trophy } from 'lucide-react';
 import { api } from '../api';
 import type { Classified, PlayoffMatch, Tournament } from '../types';
 
@@ -104,7 +104,7 @@ export function Playoff({ tournament, isAdmin, onChange }: Props) {
     <>
       <div className="spread" style={{ marginTop: 20 }}>
         <h2 style={{ margin: 0 }}>
-          <Swords size={20} /> Liguilla
+          <Trophy size={20} color="var(--accent)" /> Liguilla
         </h2>
         {canGenerate && (
           <button

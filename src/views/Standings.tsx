@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { Trophy, Users } from 'lucide-react';
+import { ListOrdered, Users } from 'lucide-react';
 import { api } from '../api';
 import type { GroupTable, Standing, Tournament } from '../types';
 
@@ -54,11 +54,11 @@ export function Standings() {
         <h2 style={{ margin: 0 }}>
           {view === 'general' ? (
             <>
-              <Trophy size={20} color="var(--accent)" /> Tabla general
+              <ListOrdered size={20} color="var(--accent)" /> Tabla general
             </>
           ) : (
             <>
-              <Users size={20} color="var(--accent)" /> Por grupos
+              <Users size={20} color="var(--accent)" /> Grupos
             </>
           )}
         </h2>
@@ -67,13 +67,13 @@ export function Standings() {
             className={view === 'general' ? 'active' : ''}
             onClick={() => setView('general')}
           >
-            <Trophy size={15} /> General
+            <ListOrdered size={15} /> General
           </button>
           <button
             className={view === 'groups' ? 'active' : ''}
             onClick={() => setView('groups')}
           >
-            <Users size={15} /> Por grupos
+            <Users size={15} /> Grupos
           </button>
         </div>
       </div>
